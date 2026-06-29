@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>倚天外傳：塞上畫眉錄</title>
+    <title>倚天外傳：塞上畫眉錄 (完整無刪減版)</title>
     <style>
         :root {
-            --bg-color: #f4f0e6;
-            --page-bg: #faf7f0;
-            --text-color: #2c2519;
-            --border-color: #d3c7b3;
-            --accent-color: #8c2d19;
+            --bg-color: #f2ebd9;
+            --page-bg: #fcf9f2;
+            --text-color: #2b2316;
+            --border-color: #dfd4be;
+            --accent-color: #8a2414;
+            --cite-color: #a48e6c;
         }
 
         * {
@@ -29,19 +30,19 @@
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
-            background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
-            background-size: 24px 24px;
+            background-image: radial-gradient(rgba(0,0,0,0.04) 1px, transparent 0);
+            background-size: 20px 20px;
         }
 
         .book-container {
             position: relative;
-            width: 90vw;
-            max-width: 500px;
-            height: 75vh;
-            max-height: 700px;
-            perspective: 1200px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border-radius: 4px;
+            width: 92vw;
+            max-width: 540px;
+            height: 80vh;
+            max-height: 750px;
+            perspective: 1500px;
+            box-shadow: 0 20px 45px rgba(43,35,22,0.2);
+            border-radius: 6px;
         }
 
         .page {
@@ -52,7 +53,7 @@
             left: 0;
             background-color: var(--page-bg);
             border: 1px solid var(--border-color);
-            padding: 40px 30px;
+            padding: 35px 30px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -60,9 +61,9 @@
             pointer-events: none;
             transform: rotateY(90deg);
             transform-origin: left center;
-            transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
-            border-radius: 0 4px 4px 0;
-            box-shadow: inset 15px 0 30px rgba(0,0,0,0.02);
+            transition: transform 0.45s ease-in-out, opacity 0.25s ease-in-out;
+            border-radius: 0 6px 6px 0;
+            box-shadow: inset 20px 0 35px rgba(0,0,0,0.03);
         }
 
         .page::before {
@@ -70,9 +71,9 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 10px;
+            width: 12px;
             height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+            background: linear-gradient(to right, rgba(0,0,0,0.06), transparent);
         }
 
         .page.active {
@@ -91,58 +92,57 @@
             opacity: 0;
         }
 
-        /* Cover Specific Styling */
+        /* Cover */
         .page.cover {
             justify-content: center;
             align-items: center;
             text-align: center;
-            border-left: 8px solid var(--accent-color);
-            background: linear-gradient(135deg, #fdfbf7 0%, #f4f0e6 100%);
+            border-left: 10px solid var(--accent-color);
+            background: linear-gradient(135deg, #fffefe 0%, #f7f1e3 100%);
         }
 
         .cover-title {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             color: var(--accent-color);
             font-weight: bold;
             margin-bottom: 15px;
-            letter-spacing: 4px;
-            border-bottom: 2px solid var(--accent-color);
+            letter-spacing: 6px;
+            border-bottom: 3px double var(--accent-color);
             padding-bottom: 15px;
-            width: 80%;
+            width: 85%;
         }
 
         .cover-subtitle {
-            font-size: 1.3rem;
-            letter-spacing: 2px;
-            color: #555;
-            margin-bottom: 50px;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            color: #444;
+            margin-bottom: 60px;
         }
 
-        /* Content Styling */
         .page-header {
-            font-size: 0.9rem;
-            color: #888;
+            font-size: 0.85rem;
+            color: #777;
             border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 5px;
+            padding-bottom: 6px;
             margin-bottom: 15px;
             text-align: right;
+            letter-spacing: 1px;
         }
 
         .page-content {
             flex-grow: 1;
             font-size: 1.05rem;
-            line-height: 1.8;
+            line-height: 1.85;
             text-align: justify;
             overflow-y: auto;
-            padding-right: 5px;
+            padding-right: 8px;
         }
 
         .page-content p {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             text-indent: 2em;
         }
 
-        /* Custom Scrollbar for inner content if needed */
         .page-content::-webkit-scrollbar {
             width: 4px;
         }
@@ -151,27 +151,41 @@
             border-radius: 4px;
         }
 
-        /* Blood Letter Blockquote Style */
+        /* Blood Letter Style */
         .blood-letter {
-            background-color: rgba(140, 45, 25, 0.04);
-            border-left: 3px solid var(--accent-color);
-            padding: 15px;
+            background-color: rgba(138, 36, 20, 0.04);
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
             margin: 15px 0;
-            font-size: 0.98rem;
-            color: #5a1c10;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: #4a120a;
+            border-radius: 0 4px 4px 0;
         }
         .blood-letter p {
             text-indent: 0 !important;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        .blood-letter p:last-child {
+            margin-bottom: 0;
+        }
+
+        .cite-tag {
+            font-size: 0.75rem;
+            color: var(--cite-color);
+            vertical-align: super;
+            margin-left: 2px;
+            font-family: Arial, sans-serif;
+            font-weight: normal;
         }
 
         .page-footer {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #888;
             text-align: center;
             margin-top: 15px;
             border-top: 1px dashed var(--border-color);
-            padding-top: 8px;
+            padding-top: 10px;
         }
 
         /* Controls */
@@ -187,13 +201,14 @@
             background-color: var(--page-bg);
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 8px 18px;
+            padding: 10px 22px;
             font-size: 0.95rem;
             cursor: pointer;
             border-radius: 4px;
             transition: all 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.06);
             font-family: inherit;
+            font-weight: bold;
         }
 
         .btn:hover {
@@ -203,17 +218,18 @@
         }
 
         .btn:disabled {
-            opacity: 0.4;
+            opacity: 0.35;
             cursor: not-allowed;
-            background-color: #eee;
-            color: #999;
-            border-color: #ccc;
+            background-color: #e5dfd3;
+            color: #8c8577;
+            border-color: #d1c7b5;
+            box-shadow: none;
         }
 
         .progress-bar {
-            width: 150px;
+            width: 180px;
             height: 6px;
-            background-color: #ddd;
+            background-color: #dbd3c3;
             border-radius: 3px;
             overflow: hidden;
         }
@@ -228,7 +244,8 @@
         .hint {
             margin-top: 12px;
             font-size: 0.8rem;
-            color: #888;
+            color: #7c725e;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -236,112 +253,295 @@
 
     <div class="book-container" id="book">
         
+        <!-- PAGE 1: COVER -->
         <div class="page cover active">
             <div class="cover-title">倚天外傳</div>
             <div class="cover-subtitle">塞上畫眉錄</div>
-            <div style="font-size: 0.95rem; color: #777;">第一回：草原秋風，退隱之難</div>
-            <div class="page-footer">翻頁以開始閱讀</div>
+            <div style="font-size: 1rem; color: #555; letter-spacing: 2px;">第一回：草原秋風，退隱之難</div>
+            <div style="font-size: 0.85rem; color: #888; margin-top: 40px;">[完整無刪減典藏版]</div>
+            <div class="page-footer">請點擊下方按鈕或使用方向鍵閱讀</div>
         </div>
 
+        <!-- PAGE 2 -->
         <div class="page">
             <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>那一年，少室山下，明教百萬教眾正圖北伐，驅逐韃虜，還我河山。</p>
-                <p>彼時的張無忌，貴為明教大教主，麾下雄兵百萬，猛將如雲。天下人都以為，這位宅心仁厚、身兼當世兩大絕頂神功的青年，即將登上那九五之尊的寶座，開創一個全新朝代。然而，江湖與權位，從來便是一枚雙面開刃的毒刃。</p>
-                <p>朱元璋在軍中羽翼已豐，其城府之深、手段之辣，遠非生性純良的張無忌所能料。瓜步江上小明王溺斃、軍中異己被暗中清洗，一樁樁、一件件，張無忌雖隱隱察覺，卻總不願相信昔日微時相識的鳳陽兄弟會如此歹毒。直到朱元璋布下巧計，利用張無忌對趙敏的兒女情長，誘使他誤以為教眾對其退隱之意早已萬眾一心，張無忌這才心灰意冷。</p>
+                <p>那一年，少室山下，明教百萬教眾正圖北伐，驅逐韃虜，還我河山。<span class="cite-tag">[cite: 1]</span></p>
+                <p>彼時的張無忌，貴為明教大教主，麾下雄兵百萬，猛將如雲。<span class="cite-tag">[cite: 1]</span>天下人都以為，這位宅心仁厚、身兼當世兩大絕頂神功的青年，即將登上那九五之尊的寶座，開創一個全新朝代。<span class="cite-tag">[cite: 1]</span>然而，江湖與權位，從來便是一枚雙面開刃的毒刃。<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 1 頁</div>
         </div>
 
+        <!-- PAGE 3 -->
         <div class="page">
             <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>他看透了權力的血腥與虛偽。當夜，他留下一封書信，將教主大權拱手讓予光明左使楊逍，自己則牽了一匹瘦馬，帶著那位甘願為他拋棄郡主榮華、背叛父兄宗族的趙敏，飄然下山。</p>
-                <p>兩人離開中原的那天，正值中秋。他們沒有回西域冰火島。那裡雖然清靜，卻終究是與世隔絕的荒蠻之地。趙敏對張無忌說：「無忌，我哥哥擴廓帖木兒（王保保）正率大元殘部退守漠北。我雖與他政見不同，但他終究是我哥哥。中原已是朱元璋的天下，你我若留在內地，他日夜難安，必生禍端。不如去塞外，在明軍與我哥哥的勢力夾縫中找個地方。一來讓他安心，二來，我也想離故鄉近些。」張無忌依了她。</p>
+                <p>朱元璋在軍中羽翼已豐，其城府之深、手段之辣，遠非生性純良的張無忌所能料。<span class="cite-tag">[cite: 1]</span>瓜步江上小明王溺斃、軍中異己被暗中清洗，一樁樁、一件件，張無忌雖隱隱察覺，卻總不願相信昔日微時相識的鳳陽兄弟會如此歹毒。<span class="cite-tag">[cite: 1]</span>直到朱元璋布下巧計，利用張無忌對趙敏的兒女情長，誘使他誤以為教眾對其退隱之意早已萬眾一心，張無忌這才心灰意冷。<span class="cite-tag">[cite: 1]</span>他看透了權力的血腥與虛偽。<span class="cite-tag">[cite: 1]</span>當夜，他留下一封書信，將教主大權拱手讓予光明左使楊逍，自己則牽了一匹瘦馬，帶著那位甘願為他拋棄郡主榮華、背叛父兄宗族的趙敏，飄然下山。<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 2 頁</div>
         </div>
 
+        <!-- PAGE 4 -->
         <div class="page">
             <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>這半年多來，兩人自雁門關出塞，一路上見到了元末明初最真實的慘狀。大明的軍隊打著「驅逐韃虜」的旗號，所到之處卻也伴隨著血腥與殺戮。無數走投無路的蒙古平民被驅趕屠殺，而中原的漢人百姓也並未過上好日子——連年征戰讓千里沃野化為焦土，新朝初立，沉重的徭役與兵役壓得百姓喘不過氣來。</p>
-                <p>張無忌一路上懸壺濟世。他用蝴蝶谷醫仙傳下的神醫之術，治好了漢人流卒的刀傷，也救活了蒙古牧民因瘟疫瀕死的孩子。在他眼裡，這世間沒有「元人」與「明人」之分，只有「可憐人」。最終，他們在「斷腸磧」這片三不管的荒原上，蓋了這間土壚酒肆。</p>
+                <p>兩人離開中原的那天，正值中秋。<span class="cite-tag">[cite: 1]</span>他們沒有回西域冰火島。<span class="cite-tag">[cite: 1]</span>那裡雖然清靜，卻終究是與世隔絕的荒蠻之地。<span class="cite-tag">[cite: 1]</span>趙敏對張無忌說：「無忌，我哥哥擴廓帖木兒（王保保）正率大元殘部退守漠北。<span class="cite-tag">[cite: 1]</span>我雖與他政見不同，但他終究是我哥哥。<span class="cite-tag">[cite: 1]</span>中原已是朱元璋的天下，你我若留在內地，他日夜難安，必生禍端。<span class="cite-tag">[cite: 1]</span>不如去塞外，在明軍與我哥哥的勢力夾縫中找個地方。<span class="cite-tag">[cite: 1]</span>一來讓他安心，二來，我也想離故鄉近些。」<span class="cite-tag">[cite: 1]</span>張無忌依了她。<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 3 頁</div>
         </div>
 
+        <!-- PAGE 5 -->
         <div class="page">
             <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>塞外的秋風，總比中原來得早，也來得烈。黃沙捲著枯草，在沒過腳踝的荒原上沒命地奔逃。在這冷冽的秋風裡，卻有一間孤零零的土壚酒肆，飄著一面褪了色的酒旗，上頭用粗墨歪歪斜斜地寫著一個「酒」字。</p>
-                <p>「無忌，你這手勁要是拿去練九陽神功，天下無敵；但拿來畫眉，可要把郡主娘娘的眼皮給戳破啦。」說話的趙敏一身粗布蒙古袍子，不施粉黛，但黑白分明的眸子斜斜一睨，依然有著絕代英氣。張無忌手裡握著螺子黛，苦笑道：「敏妹，這太極勁講究『綿綿不絕』，可這螺子黛太脆，我使得力道大一分便折，小一分便不顯色，當真比跟周姑娘的九陰白骨爪過招還要難上十倍。」</p>
+                <p>這半年多來，兩人自雁門關出塞，一路上見到了元末明初最真實的慘狀。<span class="cite-tag">[cite: 1]</span>大明的軍隊打著「驅逐韃虜」的旗號，所到之處卻也伴隨著血血與殺戮。<span class="cite-tag">[cite: 1]</span>無數走投無路的蒙古平民被驅趕屠殺，而中原的漢人百姓也並未過上好日子——連年征戰讓千里沃野化為焦土，新朝初立，沉重的徭役與兵役壓得百姓喘不過氣來。<span class="cite-tag">[cite: 1]</span></p>
+                <p>張無忌一路上懸壺濟世。<span class="cite-tag">[cite: 1]</span>他用蝴蝶谷醫仙傳下的神醫之術，治好了漢人流卒的刀傷，也救活了蒙古牧民因瘟疫瀕死的孩子。<span class="cite-tag">[cite: 1]</span>在你眼裡，這世間沒有「元人」與「明人」之分，只有「可憐人」。<span class="cite-tag">[cite: 1]</span>最終，他們在「斷腸磧」這片三不管的荒原上，蓋了這間土壚酒肆。<span class="cite-tag">[cite: 1]</span>這裡南臨大明烽火台，北接北元齊王封地。<span class="cite-tag">[cite: 1]</span>朱元璋的密探盯著這裡，王保保的斥候也看著這裡。<span class="cite-tag">[cite: 1]</span>這間小小的酒肆，就像是兩大帝國、中原與塞外之間一粒微不足道的沙塵，勉強維持著一種危險的平衡。<span class="cite-tag">[cite: 1]</span>直到今日，趙敏看著窗外的烽火台，對張無忌說出那句：「你當他坐穩了龍椅，就會放過你？」<span class="cite-tag">[cite: 1]</span>隨後，木門被撞開，重傷的吳開與少年張松溪，帶著常遇春那封足以讓大明天下天翻地覆的「太子的血書」，徹底撕碎了這維持了大半年的虛假平靜……<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 4 頁</div>
         </div>
 
+        <!-- PAGE 6 -->
         <div class="page">
             <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>趙敏淺嚐了一口馬奶酒，憂心道：「你當他坐穩了龍椅，就會放過你？朱元璋此人，心胸極狹而城府極深。你張無忌是明教百萬教眾心中的『真命教主』，只要你活著一天，他頭上的那頂皇冠，便坐得不踏實。」</p>
-                <p>張無忌默然。他思緒飄回十多年前的中原大饑荒，朱元璋那時還叫朱重八，父母大兄皆死於瘟疫與飢餓。這世道的極惡如重錘，將原本怯懦的少年鍛造得心如鐵石。後來，明教引燃抗元烽火，朱元璋改名投軍，作戰身先士卒，計謀百出。真正讓朱元璋獲得張無忌全力賞識的，是那場震驚天下的集慶之戰。</p>
+                <p>塞外的秋風，總比中原來得早，也來得烈。<span class="cite-tag">[cite: 1]</span>黃沙捲著枯草，在沒過腳踝的荒原上沒命地奔逃。<span class="cite-tag">[cite: 1]</span>這是一處叫「斷腸磧」的邊界野地，再往北走兩天，便是北元齊王擴廓帖木兒的控弦之地；往南瞧，隱隱約約能看到大明洪武皇帝新築的烽火台。<span class="cite-tag">[cite: 1]</span>那一座座烽火台宛如沉默的巨人，扼守著中原的咽喉，也割斷了無數流亡之人的歸途。<span class="cite-tag">[cite: 1]</span>在這冷冽的秋風裡，卻有一間孤零零的土壚酒肆，飄著一面褪了色的酒旗，上頭用粗墨歪歪斜斜地寫著一個「酒」字。<span class="cite-tag">[cite: 1]</span></p>
+                <p>酒肆內，爐火正旺，劈啪作響的乾柴聲將外頭的風沙稍稍隔離。<span class="cite-tag">[cite: 1]</span>「無忌，你這手勁要是拿去練九陽神功，天下無敵；但拿來畫眉，可要把郡主娘娘的眼皮給戳破啦。」<span class="cite-tag">[cite: 1]</span>說話的女子聲音清脆中帶著三分慵懶、七分揶揄。<span class="cite-tag">[cite: 1]</span>她坐在缺了一角的木凳上，螓首微抬。<span class="cite-tag">[cite: 1]</span>雖是一身粗布蒙古袍子，袖口甚至打了兩處補丁，不施粉黛，但那雙黑白分明的眸子斜斜一睨，依然有著當年在萬安寺中傲視群雄、揮手調動六大派的絕代英氣。<span class="cite-tag">[cite: 1]</span>這人正是大元紹敏郡主，敏敏特穆爾。<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 5 頁</div>
         </div>
 
+        <!-- PAGE 7 -->
         <div class="page">
             <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>攻陷集慶後，其餘將領燒殺擄掠，唯有朱元璋隊伍軍紀嚴明。他曾跪倒在張無忌面前，眼神誠懇、流淚說道：「屬下求的，不是一己之富貴，而是要為天下漢人打出一個太平盛世，讓天下的爹娘都有田耕，讓天下的孩子都有飯吃！」</p>
-                <p>這番話字字懇切，讓張無忌大為感動，從此對他信任有加，移交大權，甚至在鄱陽湖大戰時數次運用絕頂武功幫他化險為夷。可誰能想到，他坐上龍椅後，第一個殺的就是昔日兄弟。瓜步沉船，小明王溺斃，如今回想，廖永忠若無密令怎敢動手？</p>
+                <p>張無忌手裡握著一截細細的青黛螺，站在她身前。<span class="cite-tag">[cite: 1]</span>堂堂明教前任教主、身兼數門蓋世神功的絕頂高手，此刻額角竟然沁出了幾顆豆大的汗珠。<span class="cite-tag">[cite: 1]</span>他訕訕一笑，收回了手，看著趙敏那畫了一半、略顯粗俗的眉毛，摸了摸鼻子道：「敏妹，妳就別笑我了。這太極勁講究『綿綿不絕，意在筆先』，可這螺子黛太脆，我使得力道大一分便折，小一分便不顯色，當真比跟周姑娘的九陰白骨爪過招還要難上十倍。」<span class="cite-tag">[cite: 1]</span></p>
+                <p>趙敏噗嗤一聲笑了出來，奪過他手中的青黛，對著一碗清水照了照倒影，嘆道：「罷了罷了，張大教主懸壺濟世是一把好手，這妝台上的功夫，看來得學上一輩子了。」<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 6 頁</div>
         </div>
 
+        <!-- PAGE 8 -->
         <div class="page">
-            <div class="page-header">第一回：常遇春血絕書</div>
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>突然，土壚的木門被一股暴烈巨力撞開。狂暴風沙夾雜著濃烈血腥味灌了進來。張無忌左手袍袖順著風勢輕輕一拂，蘊含乾坤大挪移與太極勁力，不著痕跡地將寒風倒逼回去，木門再度死死關上。</p>
-                <p>來人共有三個。前方是兩名大明殘兵，其中一人右臂齊肩砍斷，左手卻死死抱著一個用油布層層包裹的長方形物件。此人正是常遇春麾下最信任的親衛統領吳開！他一見張無忌便哭喊道：「教主！常大帥在半個月前回軍途中……被狗皇帝用藏有金剛門奇毒的御酒毒死了！他還要將知道他底細的明教老兄弟趕盡殺絕！」</p>
+                <p>張無忌眼中滿死溫柔，拉過漸漸冰涼的素手坐下，倒了一碗熱騰騰的馬奶酒遞過去。<span class="cite-tag">[cite: 1]</span>自從那年在少室山下，他看透了權位爭奪，將明教大權拱手讓給了楊逍、彭瑩玉等人，便帶著趙敏遠走塞外。<span class="cite-tag">[cite: 1]</span>這大半年來，兩人隱姓名，在這兵荒馬亂的邊境開了這間小酒肆。<span class="cite-tag">[cite: 1]</span>張無忌平日裡給過往的牧民、流卒看病抓藥，分文不取；趙敏則管著帳目酒水。<span class="cite-tag">[cite: 1]</span>沒有了江湖恩怨，沒有了家國大義，這日子過得雖然清苦，卻是兩人一生中最快活的時光。<span class="cite-tag">[cite: 1]</span></p>
+                <p>趙敏淺嚐了一口辛辣的馬奶酒，目光轉向窗外那隱隱起伏的明軍烽火台，神色忽然有些黯然。<span class="cite-tag">[cite: 1]</span>她淡淡道：「無忌，你瞧那烽火台。一年前，那上面的旗幟還是我大元的元帥王旗；一年後，便換成了朱元璋的赤色洪武旗。天下興亡，當真如這大漠翻沙，今日埋了你，明日埋了他。」<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 7 頁</div>
         </div>
 
+        <!-- PAGE 9 -->
         <div class="page">
-            <div class="page-header">第一回：常遇春血絕書</div>
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <div class="blood-letter">
-                    <p><strong>【常遇春血絕書】</strong></p>
-                    <p>殿下吾婿：臣遇春自知難活今宵。主上御賜烈酒內藏奇毒。臣與主上自鳳陽起兵轉戰二十載，今日方知，主上心中從無兄弟，只有朱氏之江山。</p>
-                    <p>昔日瓜步江上小明王沉船、鄱陽湖後廖永忠與劉基遭猜忌，皆是主上毒手。今日輪到臣，明日便輪到徐達、藍玉！主上更誣陷張無忌教主勾結外敵，欲調動朝廷鷹犬、搜捕張教主以奪《九陽真經》與《乾坤大挪移》神功以求長生。</p>
-                    <p>明教百萬兄弟，當年可推主上登基；今日，亦可得而誅之！願殿下保重。常遇春血絕。</p>
-                </div>
+                <p>張無忌端起一碗粗茶，看著茶湯裡浮沉的碎葉，嘆道：「敏妹，興百姓苦，亡百姓苦。<span class="cite-tag">[cite: 1]</span>當年明教起兵，義軍兄弟們求的不過是一口飽飯。<span class="cite-tag">[cite: 1]</span>如今朱元璋坐了龍椅，只要他能讓天下的老百姓休養生息，這江山姓朱還是姓妥懽帖睦爾，對無忌而言，並無分別。」<span class="cite-tag">[cite: 1]</span></p>
+                <p>趙敏斜睨了他一眼，冷笑一聲，那眼神中帶著一絲洞察世事的冷冽與嘲弄：「你當他坐穩了龍椅，就會放過你？朱元璋此人，心胸極狹而城府極深。<span class="cite-tag">[cite: 1]</span>他出身寒微，正因如此，他比任何人都害怕別人奪了他的椅子。<span class="cite-tag">[cite: 1]</span>你張無忌是明教百萬教眾心中的『真命教主』，只要你活著一天，他頭上的那頂皇冠，便坐得不踏實。<span class="cite-tag">[cite: 1]</span>徐達、常遇春那些與他一同打天下的將領尚且要夾著尾巴做人，何況是你？」<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 8 頁</div>
         </div>
 
+        <!-- PAGE 10 -->
         <div class="page">
             <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>張無忌一字一句讀完，整個人如化石般定在原地，悲憤之下，指力竟將身旁厚達三寸的胡楊木桌生生捏出五個指印，木屑化為粉末。體內九陽真氣瘋狂奔湧，袍子獵獵作響。朱元璋的所作所為，徹底撕碎了他最後的幻想。</p>
-                <p>此時，護送吳開前來的十四五歲少年上前一步，跪倒在地：「武當派後學末進，奉宋大師伯與張真人密令，得知錦衣衛與大內高手前來捕殺張大俠，特來報訊。家叔便是武當四俠張松溪！」少年眼神清澈堅定：「張大俠，大明閹黨與錦衣衛的高手，已經到了！」</p>
+                <p>張無忌默然。<span class="cite-tag">[cite: 1]</span>他端著茶碗的手微微一滯，深邃的目光穿過裊裊茶煙，思緒竟在這一瞬間被趙敏的話拉回了十多年前，那個烽火連天、白骨蔽野的中原腹地。<span class="cite-tag">[cite: 1]</span>那時候的天下，是一座巨大的修羅場。<span class="cite-tag">[cite: 1]</span>元朝末年，朝政腐敗已入骨髓。<span class="cite-tag">[cite: 1]</span>朝廷上下，權貴貪婪無度，韃靼貴族視漢人、南人為草芥。<span class="cite-tag">[cite: 1]</span>那時甚至有「四等之民」的嚴苛法度，南人若殺蒙古人需償命並充軍，而蒙古人殺南人，只需罰一頭驢。<span class="cite-tag">[cite: 1]</span>更不用提當時權傾朝野的丞相伯顏，竟曾荒謬地提出要殺盡天下張、王、劉、李、趙五大姓的漢人，以絕反叛之根。<span class="cite-tag">[cite: 1]</span></p>
+                <p>在地方上，各種苛捐雜稅多如牛毛，連呼吸、走路、成婚都要課稅。<span class="cite-tag">[cite: 1]</span>最令民間痛恨的，莫過於元廷為防範漢人謀反，規定每十家漢人合用一把菜刀，且必須由韃靼保長管轄。<span class="cite-tag">[cite: 1]</span>那保長在村裡橫行霸道，享有初夜之權，凡有新婚女子，必先送至保長家中。<span class="cite-tag">[cite: 1]</span>如此奇恥大辱，壓得中原千萬熱血男兒抬不起頭來。<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 9 頁</div>
         </div>
 
+        <!-- PAGE 11 -->
         <div class="page">
             <div class="page-header">第一回：草原秋風，退隱之難</div>
             <div class="page-content">
-                <p>酒肆外的大漠風沙中，突兀地傳來急促而沉重的戰馬鐵蹄聲。黑壓壓的大明甲冑已隱隱將這間小小的土壚酒肆包圍得水洩不通，強弩上弦的嘎吱聲此起彼伏。</p>
-                <p>趙敏走過來，看著他輕聲問道：「無忌，你心中的那本帳，今日可算清了？」</p>
-                <p>當張無忌再次抬起頭時，眼中的迷茫與退讓已然一掃而空，取而代之的，是當年光明頂上威震天下的無上威嚴。「算清了。」他的聲音平靜得可怕：「朱兄弟既然想要我的九陽神功與乾坤大挪移，那便讓他的人，親自來拿吧。」</p>
-                <p style="text-align: center; font-weight: bold; margin-top: 30px; color: var(--accent-color);">【第一回 完】</p>
+                <p>恰逢黃河連年決口，山東、河南大水蔓延，千里沃野化為澤國。<span class="cite-tag">[cite: 1]</span>元廷不顧百姓死活，強徵十幾萬民工在皮鞭與飢餓中修築河堤。<span class="cite-tag">[cite: 1]</span>那時民間流傳著童謠：「天子打從和尚起，天下英雄一齊造。」這，便是朱元璋命運的起點。<span class="cite-tag">[cite: 1]</span></p>
+                <p>朱元璋，那時還叫朱重八。<span class="cite-tag">[cite: 1]</span>他出生在安徽鳳陽的一個赤貧農家，莫說田地，連個正經名字都不配有。<span class="cite-tag">[cite: 1]</span>那場大飢荒和隨之而來的瘟疫，在短短幾天內，就奪走了他父親、大首、大兄的性命。<span class="cite-tag">[cite: 1]</span>十七歲的朱重八，跪在狠心的地主劉德門前，把頭都磕出了血，只求一塊巴掌大的荒地埋葬親人。<span class="cite-tag">[cite: 1]</span>可那劉德非但沒有應允，反而破口大罵，指使惡僕將他亂棍轟出。<span class="cite-tag">[cite: 1]</span>走投無路的朱重八，只能和二兄用破草蓆裹了屍身，抬到荒山之上，一邊痛哭一邊用雙手掘土。<span class="cite-tag">[cite: 1]</span>指甲成片地剝落，鮮血混著泥沙，就在那泥地裡，他埋葬了父兄，也埋葬了對這個世道最後的一絲溫存。<span class="cite-tag">[cite: 1]</span></p>
             </div>
             <div class="page-footer">第 10 頁</div>
         </div>
 
+        <!-- PAGE 12 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>為了活命，他去皇覺寺剃度當了小和尚。<span class="cite-tag">[cite: 1]</span>可好景不長，寺裡也斷了糧，主持發給他一個木缽，便將他趕出山門，名為「遊方」，實則便是乞討。<span class="cite-tag">[cite: 1]</span>三年的流浪生涯，朱重八走遍了淮西的山山水水。<span class="cite-tag">[cite: 1]</span>他看見過路邊被惡狗爭食的嬰屍，看見過官兵為了冒功而砍下無辜農夫的人頭，更親眼見過百姓在絕望中易子而食、甚至將官兵亂刀分屍烹煮的慘狀。<span class="cite-tag">[cite: 1]</span>這世道的極惡與殘酷，如一柄重錘，將這個原本怯懦的農家少年，鍛造得心如鐵石、冷酷決絕。<span class="cite-tag">[cite: 1]</span></p>
+                <p>就在這時，明教引燃了天下抗元的烽火。<span class="cite-tag">[cite: 1]</span>韓山童、劉福通在潁州起兵，頭裹紅巾，宣揚「明王出世，彌勒下生」。<span class="cite-tag">[cite: 1]</span>這赤色的火種，瞬間燎原。<span class="cite-tag">[cite: 1]</span>朱重八接到了兒時玩伴湯和的密信，毅然投奔了濠州的紅巾軍，這才正式加入了明教的外圍義軍，成為了一名最普通的民兵。<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 11 頁</div>
+        </div>
+
+        <!-- PAGE 13 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>進入軍伍後的朱重八，彷彿變了一個人。<span class="cite-tag">[cite: 1]</span>他給自己改名為「朱元璋」——璋者，尖銳之玉器也；元璋，便是誅滅元朝的利器。<span class="cite-tag">[cite: 1]</span>他作戰時身先士卒，計謀百出，很快便在義軍大帥郭子興麾下脫穎而出，由一個親兵升為九夫長，再到統領。<span class="cite-tag">[cite: 1]</span>然而，當時的義軍內部派系林立，爭權奪利不亞於朝廷。<span class="cite-tag">[cite: 1]</span>郭子興病逝後，其子郭天敘、妻弟張天佑對朱元璋百般排擠，甚至數次設下鴻門宴欲除之而後快。<span class="cite-tag">[cite: 1]</span>朱元璋隱忍不發，表面上恭順萬分，暗地里卻在積極培植徐達、常遇春等心腹將領。<span class="cite-tag">[cite: 1]</span></p>
+                <p>真正讓朱元璋在明教中聲名大噪、並獲得張無忌全力賞識的，是那場震驚天下的集慶（今南京）之戰。<span class="cite-tag">[cite: 1]</span>彼時，張無忌剛在光明頂力戰六大派，接任明教第三十四代教主。<span class="cite-tag">[cite: 1]</span>他為了整合南方義軍，微服巡視淮西。<span class="cite-tag">[cite: 1]</span>當夜，元軍集結了三萬精銳鐵騎，由名將察罕特穆爾——也就是趙敏的父親——親自部署，欲將濠州一帶的明教義軍一網打盡。<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 12 頁</div>
+        </div>
+
+        <!-- PAGE 14 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>當時長江天險被元軍水師封鎖，集慶城防堅固如鐵。<span class="cite-tag">[cite: 1]</span>幾路義軍首領皆嚇得面如土色，有的主張退回山林，有的甚至暗中準備向元軍投降。<span class="cite-tag">[cite: 1]</span>唯獨朱元璋，在帥帳中按劍而起。<span class="cite-tag">[cite: 1]</span>他手繪了一幅長江水路與集慶城防的草圖，對著眾人厲聲道：「元軍雖強，但戰線過長，後方空虛。今夜天降大雨，正可乘其戰船不便，以火攻破其水師，再奇襲集慶！成，則江南可定；敗，不過一死，總好過坐以待斃！」<span class="cite-tag">[cite: 1]</span></p>
+                <p>張無忌當時正隱身在帳外，將這一切聽得清清楚楚。<span class="cite-tag">[cite: 1]</span>他掀帳而入，亮出教主聖火令。<span class="cite-tag">[cite: 1]</span>那是張無忌與朱元璋的第一次真正交鋒。<span class="cite-tag">[cite: 1]</span>張無忌驚嘆於這個膚色黝黑、相貌奇古的漢子身上那股驚人的膽識與軍事天才。<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 13 頁</div>
+        </div>
+
+        <!-- PAGE 15 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>更讓張無忌感動的，是朱元璋對待百姓的態度。<span class="cite-tag">[cite: 1]</span>在攻陷集慶後，其餘義軍將領皆放縱士兵燒殺擄掠、搶奪民女。<span class="cite-tag">[cite: 1]</span>唯有朱元璋的隊伍，軍紀嚴明得令人難以置信。<span class="cite-tag">[cite: 1]</span>他下令：「有取民間一針一線者，斬！」<span class="cite-tag">[cite: 1]</span>一個士兵因為肚子餓私自拿了百姓一個燒餅，朱元璋在全軍面前親自監斬，毫不留情。<span class="cite-tag">[cite: 1]</span></p>
+                <p>事後，張無忌曾私下問他：「朱兄弟，你治軍如此嚴苛，不怕將士們寒心反叛嗎？」<span class="cite-tag">[cite: 1]</span>朱元璋當時跪倒在張無忌面前，眼神無比誠懇，甚至流下了眼淚，說道：「教主，屬下自幼父母雙亡，深知百姓之苦。元人拿我們不當人，若我們明教義軍也拿百姓當草芥，那我們與元賊有何分別？屬下求的，不是一己之富貴，而是要為天下漢人打出一個太平盛世，讓天下的爹娘都有田耕，讓天下的孩子都有飯吃！」<span class="cite-tag">[cite: 1]</span>這番話，字字懇切，擲地有聲。<span class="cite-tag">[cite: 1]</span>張無忌本就宅心仁厚，生平最敬重的便是這種胸懷天下的英雄，當即大為感動，親自將朱元璋扶起。<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 14 頁</div>
+        </div>
+
+        <!-- PAGE 16 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>自那以後，張無忌對朱元璋信任有加，不僅將明教在江南的指揮大權逐步移交給他，更在楊逍、范遙等高層面前屢屢為他撐腰。<span class="cite-tag">[cite: 1]</span>每當有五行旗的掌旗使告發朱元璋有吞併異己、獨攬大權的野心時，張無忌總是微笑道：「朱兄弟是為了抗元大局，他對百姓那般仁慈，絕非自私自利之輩。」<span class="cite-tag">[cite: 1]</span>甚至在鄱陽湖大戰陳友諒時，張無忌還曾數次親冒矢石，運用絕頂武功刺殺陳友諒軍中的高手，幫朱元璋化險為夷。<span class="cite-tag">[cite: 1]</span></p>
+                <p>「可誰能想到……」張無忌收回思緒，看著眼前那碗早已冰涼的茶湯，苦笑了一聲，「那個當年為了一個燒餅便斬殺親信、口口聲聲要為天下百姓謀太平的朱兄弟，在坐上那把龍椅後，第一個殺的，就是那些隨他出生入死的明教兄弟。瓜步沉船，小明王韓林兒落水而亡，我當時還以為是意外，如今回想，廖永忠若無他的密令，怎敢動教中聖王？敏妹，妳說得對，是我太蠢，瞎了這雙眼睛。」<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 15 頁</div>
+        </div>
+
+        <!-- PAGE 17 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>趙敏輕輕握住他的手，手指在他掌心的厚繭上安撫似地摩挲，語氣放緩了些：「這不怪你。你練的是救人的醫術，修的是光明正大的神功；而他練的是帝王之術，修的是屍山血海的權謀。你若能看透他，你便不是張無忌，而是另一個朱元璋了。只是，這塞外的風，怕是要把我們這間小店也給吹垮了。」<span class="cite-tag">[cite: 1]</span></p>
+                <p>話音未落。「砰！」土壚的木門突然被一股暴烈至極的巨力撞開。<span class="cite-tag">[cite: 1]</span>那一瞬間，狂暴的沙塵夾雜著冰冷的寒風，伴隨著一種令人作嘔的、濃烈至極的血腥味，如同一頭擇人而噬的猛獸，猛地灌進了這間原本溫暖的酒肆。<span class="cite-tag">[cite: 1]</span>張無忌眉頭微皺，面色一沉。他身形甚至未曾從木凳上挪動半分，唯有左手袍袖順著風勢輕輕一拂。這一拂看似輕描淡寫，實則蘊含了乾坤大挪移的第七層心法「借力打力」與太極勁的「圓轉綿延」。<span class="cite-tag">[cite: 1]</span>只見一股無形卻澎湃的柔勁自他袖中如大潮般湧出，不偏不倚，硬生生將那股湧進來的沙塵與肆虐的寒風倒逼了回去。不僅如此，連那扇在狂風中搖搖欲墜、幾乎要脫離鉸鏈的厚重木門，都被這股柔韌的勁力牽引著，「吱呀」一聲，重新死死地關上了。這力道使得不著痕跡，收發由心，滿屋的桌椅竟連一絲顫動也無。<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 16 頁</div>
+        </div>
+
+        <!-- PAGE 18 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>「救……救命……張……張教主……」一個極度沙啞、帶著撕裂般痛苦且瀕臨絕望的聲音，在門口微弱地響起。<span class="cite-tag">[cite: 1]</span>來人共有三個。走在最前方的，是兩個渾身是血、甲冑殘破不堪的軍漢。他們身上的大明鐵甲已被利刃砍得支離破碎，翻開的皮肉裡混著大漠的黃沙，黑紅一片，顯然經歷了一場慘烈至極的圍攻與突圍。<span class="cite-tag">[cite: 1]</span>最前方的一名大漢雙腿一軟，重重地跪倒在地，發出「咚」的一聲悶響。他的右臂已然被齊肩砍斷，只草草用麻繩紮住，此時鮮血仍在不斷滲出。但他左手卻依然死死地抱著一個用厚厚油布層層包裹的長方形物件，宛如那是他的性命。<span class="cite-tag">[cite: 1]</span></p>
+                <p>而在這兩名血人身後，還護著一個約莫十四五歲的少年。那少年上身穿著一件極不合身的粗麻衣服，下身則是明軍的制式戰褲，腳上的皮靴早已磨穿，露出了鮮血淋漓的腳趾。<span class="cite-tag">[cite: 1]</span>他那張原本清秀的臉龐此時混著血水、汗水與黃沙，污穢不堪。但令人震撼的，是他的那一雙眼睛。那雙眼睛亮得嚇人，宛如黑夜中的兩點寒星，透著與他年齡極不相稱的沉穩與堅毅。少年此時雙腿也在不停地顫抖，那是體力透支到了極致的反彈，但他死死地咬著蒼白的嘴唇，甚至咬出了血印，硬是一聲不吭。他的右手，正緊緊抓著一柄缺了數個大口子、刀柄上染滿了黏稠血跡的大明制式鋼刀。<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 17 頁</div>
+        </div>
+
+        <!-- PAGE 19 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>張無忌見狀，面色大變。他腳下微一發力，身形宛如一抹輕煙，不帶半分風聲，已然縮地成寸般一步跨到了那名跪地的殘臂漢子身前。<span class="cite-tag">[cite: 1]</span>他右手伸出，食中二指輕輕搭在漢子左手的脈搏上。指尖剛一觸碰，張無忌的心便往下沉了半截。這漢子的脈搏微弱之極，三五息才勉強跳動一下，宛如風中殘燭，隨時都會熄滅。<span class="cite-tag">[cite: 1]</span>更為詭異的是，其體內正有一股極其陰毒、灼熱的異種真氣在瘋格地撕扯著他的五臟六腑。那真氣所過之處，經脈枯萎，血氣蒸騰，若非這漢子本身內家底子極其扎實，此時早已化為一具乾屍。<span class="cite-tag">[cite: 1]</span>「西域金剛門的『造化神功』？不對，這其中還夾雜著朝廷大內太監的『殘陽功』！」<span class="cite-tag">[cite: 1]</span>張無忌心中驚駭，當即右掌抵住漢子的後背，一股純正、渾厚、至陽至剛的九陽真氣如長江之水般緩緩注入。九陽真氣何等宏大，始一進入，便將那股肆虐的陰毒熱毒死死壓制。那漢子長吐了一口黑血，慘白的臉上終於恢復了一絲血色。<span class="cite-tag">[cite: 1]</span></p>
+                <p>張無忌這才看清他的面容，登時失聲道：「吳統領？你是常大哥座下的吳開吳統領！你……你怎麼傷成這樣？常大哥呢？大軍不是在北伐回軍的路上嗎？」<span class="cite-tag">[cite: 1]</span>這受傷的漢子，正是當年漢水之畔、蝴蝶谷中，與張無忌一同面對元軍圍剿、同生共死過的明教義軍老兄弟。如今，他是大明開國第一猛將、鄂國公常遇春麾下最信任的親衛統領。<span class="cite-tag">[cite: 1]</span>吳開緩緩睜開眼，一見到張無忌那張熟悉而溫厚的面龐，眼中陡然迸發出最後的、近乎迴光返照般的光芒。他一把死死抓住張無忌的衣袖，指甲深深地陷進布料裡，哭喊道：「教主！真的是您……屬下……屬下總算撐到了這裡！常大帥……常大帥他……他在半個月前回軍途中，行至柳河川時……突然暴斃了！」<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 18 頁</div>
+        </div>
+
+        <!-- PAGE 20 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>「什麼？！」這兩個字，並非出自張無忌之口，而是坐在一旁的趙敏。<span class="cite-tag">[cite: 1]</span>她面色驟變，手中的馬奶酒碗「當啷」一聲掉落在地，醇香的酒水潑灑了一地。<span class="cite-tag">[cite: 1]</span>常遇春是何等人物？那大明的「常十萬」，百戰不敗，武功之高在軍中罕有匹敵。更重要的是，他正值四十歲的壯年，體格魁梧如牛，怎麼可能突然暴斃？<span class="cite-tag">[cite: 1]</span>張無忌腦中更是嗡嗡作響，身形微微一晃。常遇春與他情同手足，昔日在蝴蝶谷，若非常遇春捨命相護，他張無忌早化為一堆白骨。後來抗元戰場上，常遇春更是不止一次對他忠心耿耿。<span class="cite-tag">[cite: 1]</span>「朝廷……外朝都在傳，大帥是解甲歇息時突中風寒，罹患了『卸甲風』而死……」<span class="cite-tag">[cite: 1]</span>吳開目眥欲裂，眼角竟然流出了兩行血淚，慘厲地笑道，「假話！全是朱元璋那狗皇帝編造的假話！大帥何等神功，怎會怕那區區山風？是毒！是朱元璋御賜的『御酒』！那酒中藏有西域金剛門和宮廷大內的奇毒！大帥喝下後，當夜便吐血不止，經脈盡碎啊！」<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 19 頁</div>
+        </div>
+
+        <!-- PAGE 21 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>吳開的情緒激動萬分，體內被壓制的毒素再度反撲，他又是一大口黑血噴在地下，那黑血落在泥地上，竟然發出嗤嗤的腐蝕聲。<span class="cite-tag">[cite: 1]</span>「朱元璋那廝當了皇帝，心中便再也沒有了當年的教門兄弟，只有他的朱家江山！」<span class="cite-tag">[cite: 1]</span>吳開一邊喘著粗氣，一邊顫抖著解開懷裡用油布包裹的物件。<span class="cite-tag">[cite: 1]</span>「他不僅毒死了大帥，還要將昔日江淮一帶、知道他底細的明教老兄弟趕盡殺絕！他誣陷教主您在塞外勾結蒙古殘部、圖謀顛覆大明，派了武林叛徒、金剛門妖人，還有新設的、直屬皇帝的『錦衣衛』漫天搜捕，就是為了大帥留下的這件東西……」<span class="cite-tag">[cite: 1]</span></p>
+                <p>油布被一層層解開。裡面露出來的，竟然不是什麼神兵利器，也不是什麼武功秘笈。<span class="cite-tag">[cite: 1]</span>那是一面殘破不堪、上面佈滿了刀砍斧鑿痕跡的青色旗幟——那是當年明教五行旗中，常遇春曾統帥過的「巨木旗」偏旗。<span class="cite-tag">[cite: 1]</span>然而，此時那青色的旗幟上，卻密密麻麻地寫滿了字跡。<span class="cite-tag">[cite: 1]</span>那字跡歪歪斜斜，乾涸的血跡呈現出一種觸目驚心的黑褐色，每一個字都入木三分，足見寫字之人當時已至生命盡頭，是用指尖鮮血生生摳刻上去的。<span class="cite-tag">[cite: 1]</span>張無忌雙手顫抖著接過那面殘旗，目光掃向那血書的開頭，心頭不由得狂震。<span class="cite-tag">[cite: 1]</span>這，竟然是常遇春臨終前，拼死送出的一封絕筆信。而這封信的收信人，不是別人，正是當時大明的皇太子、朱元璋的長子——朱標。<span class="cite-tag">[cite: 1]</span>常遇春，正是朱標的岳父。張無忌深吸了一口氣，強忍著心頭的震驚，緩緩讀了下去：<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 20 頁</div>
+        </div>
+
+        <!-- PAGE 22 -->
+        <div class="page">
+            <div class="page-header">第一回：常遇春血絕書</div>
+            <div class="page-content">
+                <div class="blood-letter">
+                    <p><strong>【常遇春血絕書】</strong><span class="cite-tag">[cite: 1]</span></p>
+                    <p>殿下吾婿：<span class="cite-tag">[cite: 1]</span></p>
+                    <p>臣遇春已至強弩之末，自知難活今宵。外朝皆傳臣罹患「卸甲風」，實則不然。今日主上（皇帝）御賜之烈酒，內藏奇毒，其根源乃當年西域金剛門之「造化毒功」，兼大內陰邪之氣。臣內臟已碎，神仙難救。<span class="cite-tag">[cite: 1]</span></p>
+                    <p>臣與主上自鳳陽起兵，轉戰天下二十載，驅韃虜，復中華，今日方知，主上心中從無兄弟，只有朱氏之江山。臣死不足惜，然主上之狠辣，已入魔道。<span class="cite-tag">[cite: 1]</span></p>
+                    <p>憶往昔，瓜步江上，小明王韓林兒沉船而溺，皆因主上暗授廖永忠密令，乘人之危，斷我明教香火，好使主上能順理成章御宇天下。彼時臣與徐達瞧出端倪，卻為天下抗元大局，隱忍不發，坐視廖永忠行兇。今日思之，痛心指首！鄱陽湖畔，陳友諒既滅，廖永忠、劉基（劉伯溫）亦遭猜忌，恐皆不得善終。今日輪到臣遇春，明日便輪到徐達、藍玉！<span class="cite-tag">[cite: 1]</span></p>
+                </div>
+            </div>
+            <div class="page-footer">第 21 頁</div>
+        </div>
+
+        <!-- PAGE 23 -->
+        <div class="page">
+            <div class="page-header">第一回：常遇春血絕書</div>
+            <div class="page-content">
+                <div class="blood-letter" style="margin-top: 0;">
+                    <p>主上為絕後患，更誣陷張無忌教主勾結外敵，欲調動朝廷鷹犬、勾結武林叛徒，漫天搜捕張教主，一為除真命教主之隱患，二為奪其《九陽真經》與《乾坤大挪移》神功以求長生，並欲盡誅大明境內明教百萬子弟。<span class="cite-tag">[cite: 1]</span></p>
+                    <p>殿下仁厚，乃大明未來之主。若主上執意淪為嗜殺暴君，自絕於天下，大明必亡！<span class="cite-tag">[cite: 1]</span></p>
+                    <p>臣已遣心腹吳開，拼死將此血書與臣之私印送往塞外斷腸磧，秘報張教主。明教百萬兄弟，當年可推主上登基；今日，亦可得而誅之！<span class="cite-tag">[cite: 1]</span></p>
+                    <p>願殿下保重，莫步臣之塵埃。<span class="cite-tag">[cite: 1]</span></p>
+                    <p style="text-align: right;">常遇春血絕。<span class="cite-tag">[cite: 1]</span></p>
+                </div>
+            </div>
+            <div class="page-footer">第 22 頁</div>
+        </div>
+
+        <!-- PAGE 24 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>「常大哥……你竟真是被他毒死的……」張無忌一字一句地讀完，整個人如化石般定在原地。<span class="cite-tag">[cite: 1]</span>那血書最後一句「明教百萬兄弟當年可推主上登基；今日，亦可得而誅之！」宛如驚雷，在他耳邊轟然炸響。<span class="cite-tag">[cite: 1]</span>他的雙手開始劇烈地顫抖起來，指力在極度的悲憤下不自覺地透出。<span class="cite-tag">[cite: 1]</span>只聽得一陣刺耳的「吱呀」聲，他身旁那張用百年胡楊木製成、厚達三寸的扎實木桌，竟然在他的指力下如豆腐般脆弱，被生生捏出了五個深深的指印，木屑化為粉末，簌簌落下。<span class="cite-tag">[cite: 1]</span>體內的九陽真氣受他情緒激盪，再也不受控制地瘋狂奔湧起來。<span class="cite-tag">[cite: 1]</span>至陽至剛的真氣在他經脈中咆哮，直震得他身上的粗布袍子如同灌滿了大風一般，獵獵作響，發出劈啪的爆鳴聲。周圍的空氣溫度陡然升高，連爐火都隱隱被這股威壓壓得黯淡了下去。<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 23 頁</div>
+        </div>
+
+        <!-- PAGE 25 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>他一生不願與昔日兄弟反目，一再忍讓，甚至將天子之位拱手相讓。<span class="cite-tag">[cite: 1]</span>可朱元璋的所作所為，徹底撕碎了他最後的幻想。「瓜步沉船……真的是他……常大哥也是他殺的……」張無忌兩眼隱隱泛起一絲血絲，那是九陽神功催動到極致、心中殺意沸騰的徵兆。<span class="cite-tag">[cite: 1]</span>朱元璋為了那把椅子，竟然連天下大義、兄弟之情都可以踐踏至此。<span class="cite-tag">[cite: 1]</span>更可悲的是，這封信原本是常遇春寫給太子朱標的，希望藉由這位仁厚的儲君來勸諫或制衡朱元璋。<span class="cite-tag">[cite: 1]</span>如今這封信落入江湖，若是傳將出去，大明朝廷內部、甚至整個天下的明教殘部，又將掀起怎樣的血雨腥風？<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 24 頁</div>
+        </div>
+
+        <!-- PAGE 26 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>就在此時，原本一直靜靜咬牙佇立在吳開身後的那個十四五歲的少年，突然上前一步，雙腿一屈，重重地跪在張無忌面前。<span class="cite-tag">[cite: 1]</span>「武當派後學末進，張松溪之遠姪張翠山……不，張松溪拜見張大俠！」<span class="cite-tag">[cite: 1]</span>那少年因為極度緊張與激動，一開口竟然將長輩的名諱與自己弄混了。<span class="cite-tag">[cite: 1]</span></p>
+                <p>但他隨即深深吸了一口氣，強自鎮定下來，雙手抱拳，清脆卻堅定地說道：「家叔武當四俠張松溪，奉宋大師伯與張真人密令，得知錦衣衛與大內高手北上塞外捕殺張大俠，特命小姪暗中前來報訊。<span class="cite-tag">[cite: 1]</span>不料半路遇上吳統領被閹黨圍攻，小姪便與吳統領一同殺了出來！」<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 25 頁</div>
+        </div>
+
+        <!-- PAGE 27 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>張無忌心頭又是一震，看著這個英氣勃勃、眼神與當年的五叔張翠山竟有七分神似的少年，失聲道：「你是四師伯的姪兒？你叫張松溪？四師伯竟用自己的名字為你命名？」<span class="cite-tag">[cite: 1]</span>少年點了點頭，眼神清澈：「叔父說，此生不能辱了武當名號。張大俠，大明閹黨與錦衣衛的高手，已經到了！」<span class="cite-tag">[cite: 1]</span></p>
+                <p>彷彿是為了印證少年的話。酒肆外的大漠風沙中，突兀地傳來了急促而沉重的馬蹄聲。<span class="cite-tag">[cite: 1]</span>那不是普通牧民的劣馬，那是踩著大明軍隊特製精鐵蹄鐵、奔行如雷的北伐精銳戰馬。<span class="cite-tag">[cite: 1]</span>數百騎兵在風沙中同時奔馳，那股巨大的震動，讓整片斷腸磧的黃沙都劇烈地顫抖起來，酒肆屋頂上的泥沙簌簌而落。<span class="cite-tag">[cite: 1]</span></p>
+            </div>
+            <div class="page-footer">第 26 頁</div>
+        </div>
+
+        <!-- PAGE 28 -->
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>趙敏緩緩站起身，走到張無忌身邊。<span class="cite-tag">[cite: 1]</span>她看著那面染血的殘旗，又看了看門外那滾滾而來的黃沙，眼中閃過一絲無比複雜的神色——那裡有對命運的譏諷，有對父兄昔日對手的嘆息，但更多的是一種解脫般的決絕。<span class="cite-tag">[cite: 1]</span>她看著張無忌，輕聲道：「無忌，這大半年來，你為人看病，我為人算帳。我問你，你心中的那本帳，今日可算清了？」<span class="cite-tag">[cite: 1]</span></p>
+                <p>張無忌緩緩將常遇春的血書折好，貼身放進懷中。<span class="cite-tag">[cite: 1]</span>當他再次抬起頭時，眼中的迷茫、柔弱與退讓已然一掃而空。取而代之的，是當年光明頂上，一人獨抗六大派、威震天下的明教大教主的無上威嚴。<span class="cite-tag">[cite: 1]</span>「算清了。」張無忌的聲音平靜得可怕，卻清晰地傳進了屋內每一個人的耳中，「朱兄弟既然想要我的九陽神功與乾坤大挪移，那便讓他的人，親自來拿吧。」<span class="cite-tag">[cite: 1]</span></p>
+                <p>風沙中，黑壓壓的大明甲冑已隱隱將這間小小的土壚酒肆包圍得水洩不通。一柄柄在寒風中閃爍著冷冽光芒的鋼刀紛紛出鞘，強弩上弦的嘎吱聲在風中此起彼伏。第一回的滔天風暴，正式在這邊境荒原「斷腸磧」，悍然點燃。<span class="cite-tag">[cite: 1]</span></p>
+                <p style="text-align: center; font-weight: bold; margin-top: 35px; color: var(--accent-color);">【第一回 塞上畫眉錄 完】</p>
+            </div>
+            <div class="page-footer">第 27 頁</div>
+        </div>
+
     </div>
 
+    <!-- CONTROLS -->
     <div class="controls">
         <button class="btn" id="prevBtn" disabled>上一頁</button>
         <div class="progress-bar">
@@ -350,7 +550,7 @@
         <button class="btn" id="nextBtn">下一頁</button>
     </div>
 
-    <div class="hint">提示：你也可以使用鍵盤的 ← 與 → 鍵進行翻頁</div>
+    <div class="hint">提示：除了按鈕，您也可以使用鍵盤的 ← 與 → 鍵來翻頁</div>
 
     <script>
         const pages = document.querySelectorAll('.page');
@@ -371,11 +571,9 @@
                 }
             });
 
-            // Update buttons
             prevBtn.disabled = currentPage === 0;
             nextBtn.disabled = currentPage === pages.length - 1;
 
-            // Update progress bar
             const progressPercent = (currentPage / (pages.length - 1)) * 100;
             progressBar.style.width = `${progressPercent}%`;
         }
@@ -394,7 +592,6 @@
             }
         });
 
-        // Keyboard Navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft' && currentPage > 0) {
                 currentPage--;
@@ -405,7 +602,6 @@
             }
         });
 
-        // Initialize progress bar width on load
         updateBook();
     </script>
 </body>
