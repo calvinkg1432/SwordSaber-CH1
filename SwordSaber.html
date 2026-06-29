@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倚天外傳：塞上畫眉錄</title>
+    <style>
+        :root {
+            --bg-color: #f4f0e6;
+            --page-bg: #faf7f0;
+            --text-color: #2c2519;
+            --border-color: #d3c7b3;
+            --accent-color: #8c2d19;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: "Noto Serif TC", "Microsoft JhengHei", Georgia, serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .book-container {
+            position: relative;
+            width: 90vw;
+            max-width: 500px;
+            height: 75vh;
+            max-height: 700px;
+            perspective: 1200px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-radius: 4px;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: var(--page-bg);
+            border: 1px solid var(--border-color);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            pointer-events: none;
+            transform: rotateY(90deg);
+            transform-origin: left center;
+            transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            border-radius: 0 4px 4px 0;
+            box-shadow: inset 15px 0 30px rgba(0,0,0,0.02);
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: rotateY(0deg);
+            z-index: 2;
+        }
+
+        .page.active ~ .page {
+            transform: rotateY(90deg);
+        }
+
+        .page.prev {
+            transform: rotateY(-90deg);
+            opacity: 0;
+        }
+
+        /* Cover Specific Styling */
+        .page.cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-left: 8px solid var(--accent-color);
+            background: linear-gradient(135deg, #fdfbf7 0%, #f4f0e6 100%);
+        }
+
+        .cover-title {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px;
+            width: 80%;
+        }
+
+        .cover-subtitle {
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            color: #555;
+            margin-bottom: 50px;
+        }
+
+        /* Content Styling */
+        .page-header {
+            font-size: 0.9rem;
+            color: #888;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .page-content {
+            flex-grow: 1;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            text-align: justify;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .page-content p {
+            margin-bottom: 16px;
+            text-indent: 2em;
+        }
+
+        /* Custom Scrollbar for inner content if needed */
+        .page-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .page-content::-webkit-scrollbar-thumb {
+            background-color: var(--border-color);
+            border-radius: 4px;
+        }
+
+        /* Blood Letter Blockquote Style */
+        .blood-letter {
+            background-color: rgba(140, 45, 25, 0.04);
+            border-left: 3px solid var(--accent-color);
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 0.98rem;
+            color: #5a1c10;
+        }
+        .blood-letter p {
+            text-indent: 0 !important;
+            margin-bottom: 8px;
+        }
+
+        .page-footer {
+            font-size: 0.85rem;
+            color: #888;
+            text-align: center;
+            margin-top: 15px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 8px;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .btn {
+            background-color: var(--page-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 18px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background-color: #eee;
+            color: #999;
+            border-color: #ccc;
+        }
+
+        .progress-bar {
+            width: 150px;
+            height: 6px;
+            background-color: #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .hint {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="book-container" id="book">
+        
+        <div class="page cover active">
+            <div class="cover-title">倚天外傳</div>
+            <div class="cover-subtitle">塞上畫眉錄</div>
+            <div style="font-size: 0.95rem; color: #777;">第一回：草原秋風，退隱之難</div>
+            <div class="page-footer">翻頁以開始閱讀</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>那一年，少室山下，明教百萬教眾正圖北伐，驅逐韃虜，還我河山。</p>
+                <p>彼時的張無忌，貴為明教大教主，麾下雄兵百萬，猛將如雲。天下人都以為，這位宅心仁厚、身兼當世兩大絕頂神功的青年，即將登上那九五之尊的寶座，開創一個全新朝代。然而，江湖與權位，從來便是一枚雙面開刃的毒刃。</p>
+                <p>朱元璋在軍中羽翼已豐，其城府之深、手段之辣，遠非生性純良的張無忌所能料。瓜步江上小明王溺斃、軍中異己被暗中清洗，一樁樁、一件件，張無忌雖隱隱察覺，卻總不願相信昔日微時相識的鳳陽兄弟會如此歹毒。直到朱元璋布下巧計，利用張無忌對趙敏的兒女情長，誘使他誤以為教眾對其退隱之意早已萬眾一心，張無忌這才心灰意冷。</p>
+            </div>
+            <div class="page-footer">第 1 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>他看透了權力的血腥與虛偽。當夜，他留下一封書信，將教主大權拱手讓予光明左使楊逍，自己則牽了一匹瘦馬，帶著那位甘願為他拋棄郡主榮華、背叛父兄宗族的趙敏，飄然下山。</p>
+                <p>兩人離開中原的那天，正值中秋。他們沒有回西域冰火島。那裡雖然清靜，卻終究是與世隔絕的荒蠻之地。趙敏對張無忌說：「無忌，我哥哥擴廓帖木兒（王保保）正率大元殘部退守漠北。我雖與他政見不同，但他終究是我哥哥。中原已是朱元璋的天下，你我若留在內地，他日夜難安，必生禍端。不如去塞外，在明軍與我哥哥的勢力夾縫中找個地方。一來讓他安心，二來，我也想離故鄉近些。」張無忌依了她。</p>
+            </div>
+            <div class="page-footer">第 2 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>這半年多來，兩人自雁門關出塞，一路上見到了元末明初最真實的慘狀。大明的軍隊打著「驅逐韃虜」的旗號，所到之處卻也伴隨著血腥與殺戮。無數走投無路的蒙古平民被驅趕屠殺，而中原的漢人百姓也並未過上好日子——連年征戰讓千里沃野化為焦土，新朝初立，沉重的徭役與兵役壓得百姓喘不過氣來。</p>
+                <p>張無忌一路上懸壺濟世。他用蝴蝶谷醫仙傳下的神醫之術，治好了漢人流卒的刀傷，也救活了蒙古牧民因瘟疫瀕死的孩子。在他眼裡，這世間沒有「元人」與「明人」之分，只有「可憐人」。最終，他們在「斷腸磧」這片三不管的荒原上，蓋了這間土壚酒肆。</p>
+            </div>
+            <div class="page-footer">第 3 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>塞外的秋風，總比中原來得早，也來得烈。黃沙捲著枯草，在沒過腳踝的荒原上沒命地奔逃。在這冷冽的秋風裡，卻有一間孤零零的土壚酒肆，飄著一面褪了色的酒旗，上頭用粗墨歪歪斜斜地寫著一個「酒」字。</p>
+                <p>「無忌，你這手勁要是拿去練九陽神功，天下無敵；但拿來畫眉，可要把郡主娘娘的眼皮給戳破啦。」說話的趙敏一身粗布蒙古袍子，不施粉黛，但黑白分明的眸子斜斜一睨，依然有著絕代英氣。張無忌手裡握著螺子黛，苦笑道：「敏妹，這太極勁講究『綿綿不絕』，可這螺子黛太脆，我使得力道大一分便折，小一分便不顯色，當真比跟周姑娘的九陰白骨爪過招還要難上十倍。」</p>
+            </div>
+            <div class="page-footer">第 4 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>趙敏淺嚐了一口馬奶酒，憂心道：「你當他坐穩了龍椅，就會放過你？朱元璋此人，心胸極狹而城府極深。你張無忌是明教百萬教眾心中的『真命教主』，只要你活著一天，他頭上的那頂皇冠，便坐得不踏實。」</p>
+                <p>張無忌默然。他思緒飄回十多年前的中原大饑荒，朱元璋那時還叫朱重八，父母大兄皆死於瘟疫與飢餓。這世道的極惡如重錘，將原本怯懦的少年鍛造得心如鐵石。後來，明教引燃抗元烽火，朱元璋改名投軍，作戰身先士卒，計謀百出。真正讓朱元璋獲得張無忌全力賞識的，是那場震驚天下的集慶之戰。</p>
+            </div>
+            <div class="page-footer">第 5 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>攻陷集慶後，其餘將領燒殺擄掠，唯有朱元璋隊伍軍紀嚴明。他曾跪倒在張無忌面前，眼神誠懇、流淚說道：「屬下求的，不是一己之富貴，而是要為天下漢人打出一個太平盛世，讓天下的爹娘都有田耕，讓天下的孩子都有飯吃！」</p>
+                <p>這番話字字懇切，讓張無忌大為感動，從此對他信任有加，移交大權，甚至在鄱陽湖大戰時數次運用絕頂武功幫他化險為夷。可誰能想到，他坐上龍椅後，第一個殺的就是昔日兄弟。瓜步沉船，小明王溺斃，如今回想，廖永忠若無密令怎敢動手？</p>
+            </div>
+            <div class="page-footer">第 6 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：常遇春血絕書</div>
+            <div class="page-content">
+                <p>突然，土壚的木門被一股暴烈巨力撞開。狂暴風沙夾雜著濃烈血腥味灌了進來。張無忌左手袍袖順著風勢輕輕一拂，蘊含乾坤大挪移與太極勁力，不著痕跡地將寒風倒逼回去，木門再度死死關上。</p>
+                <p>來人共有三個。前方是兩名大明殘兵，其中一人右臂齊肩砍斷，左手卻死死抱著一個用油布層層包裹的長方形物件。此人正是常遇春麾下最信任的親衛統領吳開！他一見張無忌便哭喊道：「教主！常大帥在半個月前回軍途中……被狗皇帝用藏有金剛門奇毒的御酒毒死了！他還要將知道他底細的明教老兄弟趕盡殺絕！」</p>
+            </div>
+            <div class="page-footer">第 7 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：常遇春血絕書</div>
+            <div class="page-content">
+                <div class="blood-letter">
+                    <p><strong>【常遇春血絕書】</strong></p>
+                    <p>殿下吾婿：臣遇春自知難活今宵。主上御賜烈酒內藏奇毒。臣與主上自鳳陽起兵轉戰二十載，今日方知，主上心中從無兄弟，只有朱氏之江山。</p>
+                    <p>昔日瓜步江上小明王沉船、鄱陽湖後廖永忠與劉基遭猜忌，皆是主上毒手。今日輪到臣，明日便輪到徐達、藍玉！主上更誣陷張無忌教主勾結外敵，欲調動朝廷鷹犬、搜捕張教主以奪《九陽真經》與《乾坤大挪移》神功以求長生。</p>
+                    <p>明教百萬兄弟，當年可推主上登基；今日，亦可得而誅之！願殿下保重。常遇春血絕。</p>
+                </div>
+            </div>
+            <div class="page-footer">第 8 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>張無忌一字一句讀完，整個人如化石般定在原地，悲憤之下，指力竟將身旁厚達三寸的胡楊木桌生生捏出五個指印，木屑化為粉末。體內九陽真氣瘋狂奔湧，袍子獵獵作響。朱元璋的所作所為，徹底撕碎了他最後的幻想。</p>
+                <p>此時，護送吳開前來的十四五歲少年上前一步，跪倒在地：「武當派後學末進，奉宋大師伯與張真人密令，得知錦衣衛與大內高手前來捕殺張大俠，特來報訊。家叔便是武當四俠張松溪！」少年眼神清澈堅定：「張大俠，大明閹黨與錦衣衛的高手，已經到了！」</p>
+            </div>
+            <div class="page-footer">第 9 頁</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header">第一回：草原秋風，退隱之難</div>
+            <div class="page-content">
+                <p>酒肆外的大漠風沙中，突兀地傳來急促而沉重的戰馬鐵蹄聲。黑壓壓的大明甲冑已隱隱將這間小小的土壚酒肆包圍得水洩不通，強弩上弦的嘎吱聲此起彼伏。</p>
+                <p>趙敏走過來，看著他輕聲問道：「無忌，你心中的那本帳，今日可算清了？」</p>
+                <p>當張無忌再次抬起頭時，眼中的迷茫與退讓已然一掃而空，取而代之的，是當年光明頂上威震天下的無上威嚴。「算清了。」他的聲音平靜得可怕：「朱兄弟既然想要我的九陽神功與乾坤大挪移，那便讓他的人，親自來拿吧。」</p>
+                <p style="text-align: center; font-weight: bold; margin-top: 30px; color: var(--accent-color);">【第一回 完】</p>
+            </div>
+            <div class="page-footer">第 10 頁</div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="prevBtn" disabled>上一頁</button>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+        <button class="btn" id="nextBtn">下一頁</button>
+    </div>
+
+    <div class="hint">提示：你也可以使用鍵盤的 ← 與 → 鍵進行翻頁</div>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progress');
+        
+        let currentPage = 0;
+
+        function updateBook() {
+            pages.forEach((page, index) => {
+                page.classList.remove('active', 'prev');
+                
+                if (index === currentPage) {
+                    page.classList.add('active');
+                } else if (index < currentPage) {
+                    page.classList.add('prev');
+                }
+            });
+
+            // Update buttons
+            prevBtn.disabled = currentPage === 0;
+            nextBtn.disabled = currentPage === pages.length - 1;
+
+            // Update progress bar
+            const progressPercent = (currentPage / (pages.length - 1)) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                updateBook();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                updateBook();
+            }
+        });
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentPage > 0) {
+                currentPage--;
+                updateBook();
+            } else if (e.key === 'ArrowRight' && currentPage < pages.length - 1) {
+                currentPage++;
+                updateBook();
+            }
+        });
+
+        // Initialize progress bar width on load
+        updateBook();
+    </script>
+</body>
+</html>
